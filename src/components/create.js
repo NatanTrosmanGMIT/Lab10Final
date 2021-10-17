@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
 // Basic create class
-class Header extends Component {
+class Create extends Component {
+
     render(){
         return(
         <div>
-            <h1>This is my Header Component.</h1>
+            <h1>This is my Create Component.</h1>
         </div>
         );
     }
 }
-export default Header;
+export default Create;
