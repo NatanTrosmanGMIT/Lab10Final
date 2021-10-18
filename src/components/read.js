@@ -1,43 +1,31 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Movies from './movies';
+import axios from 'axios';
+import { ThemeConsumer } from 'react-bootstrap/esm/ThemeProvider';
 
 class Read extends Component {
-   
+
+    componentDidMount() {
+        axios.get('https://jsonblob.com/api/jsonblob/894944504570986496')
+            .then((response) => {
+                this.setState({ mymovies: response.data.movies })
+            })
+            .catch((error) => {
+                console.log(error)
+            });
+    }
+
     // this is all the info we'll be displaying
     state = {
-        movies: [
-            {
-            "Title": "Avengers: Infinity War",
-            "Year": "2018",
-            "imdbID": "tt4154756",
-            "Type": "movie",
-            "Poster": "https://m.media-amazon.com/images/M/MV5BMjMxNjY2MDU1OV5BMl5BanBnXkFtZTgwNzY1MTUwNTM@._V1_SX300.jpg"
-            },
-            {
-            "Title": "Captain America: Civil War",
-            "Year": "2016",
-            "imdbID": "tt3498820",
-            "Type": "movie",
-            "Poster": "https://m.media-amazon.com/images/M/MV5BMjQ0MTgyNjAxMV5BMl5BanBnXkFtZTgwNjUzMDkyODE@._V1_SX300.jpg"
-            },
-            {
-            "Title": "Charlie Wilson's War",
-            "Year": "2007",
-            "imdbID": "tt0472062",
-            "Type": "movie",
-            "Poster": "https://m.media-amazon.com/images/M/MV5BMTgwMDgwMDc4MF5BMl5BanBnXkFtZTYwOTU3MDM4._V1_SX300.jpg"
-            }
-            ]
+        mymovies: []
     };
-   
-
     // this is where we display all the info thats read
-    render(){
-        return(
-        <div>
-            <h1>This is my Read Component.</h1>
-            <Movies movies={this.state.movies}></Movies>
-        </div>
+    render() {
+        return (
+            <div>
+                <h1>This is my Read Component.</h1>
+                <Movies movies={this.state.mymovies}></Movies>
+            </div>
         );
     }
 }
