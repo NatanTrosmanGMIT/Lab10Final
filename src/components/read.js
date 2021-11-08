@@ -4,10 +4,11 @@ import axios from 'axios';
 
 class Read extends Component {
 
+    // get info from host 4000
     componentDidMount() {
         axios.get('http://localhost:4000/api/movies')
             .then((response) => {
-                this.setState({ mymovies: response.data.mymovies })
+                this.setState({ mymovies: response.data })
             })
             .catch((error) => {
                 console.log(error)
