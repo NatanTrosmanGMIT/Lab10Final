@@ -40,6 +40,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
+// how we want movies displayed
 app.post('/api/movies', (req, res) => {
     console.log(req.body);
     console.log(req.body.Title);
@@ -54,6 +55,31 @@ app.post('/api/movies', (req, res) => {
     res.send('Data Sent to Server!')
 });
 
+// displays just the movie connected to they id typed in
+app.get('/api/movies/:id', (req, res) => {
+    console.log(req.params.id);
+
+    movieModel.findById(req.params.id, (err,data)=>{
+        res.json(data);
+    })
+})
+// displays the movie data
+app.get('/api/movies', (req, res) => {
+
+    //https://m.media-amazon.com/images/M/MV5BNDQ4YzFmNzktMmM5ZC00MDZjLTk1OTktNDE2ODE4YjM2MjJjXkEyXkFqcGdeQXVyNTA4NzY1MzY@._V1_SX300.jpg
+    //https://m.media-amazon.com/images/M/MV5BNDUyODAzNDI1Nl5BMl5BanBnXkFtZTcwMDA2NDAzMw@@._V1_SX300.jpg
+
+    movieModel.find((err, data) => {
+        res.json(data);
+    })
+
+})
+
+app.listen(port, () => {
+    console.log(`Example app listening at http://localhost:${port}`)
+})
+
+// extras here
 app.get('/', (req, res) => {
     res.send('Welcome to Data Representation & Querying')
 })
@@ -64,23 +90,6 @@ app.get('/hello/:name', (req, res) => {
 
 app.get('/whatever', (req, res) => {
     res.send('cool!')
-})
-app.get('/api/movies/:id', (req, res) => {
-    console.log(req.params.id);
-
-    movieModel.findById(req.params.id, (err,data)=>{
-        res.json(data);
-    })
-})
-app.get('/api/movies', (req, res) => {
-
-    //https://m.media-amazon.com/images/M/MV5BNDQ4YzFmNzktMmM5ZC00MDZjLTk1OTktNDE2ODE4YjM2MjJjXkEyXkFqcGdeQXVyNTA4NzY1MzY@._V1_SX300.jpg
-    //https://m.media-amazon.com/images/M/MV5BNDUyODAzNDI1Nl5BMl5BanBnXkFtZTcwMDA2NDAzMw@@._V1_SX300.jpg
-
-    movieModel.find((err, data) => {
-        res.json(data);
-    })
-
 })
 
 app.get('/name', (req, res) => {
@@ -93,8 +102,4 @@ app.post('/name', (req, res) => {
 
 app.get('/test', (req, res) => {
     res.sendFile(__dirname + '/index.html');
-})
-
-app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`)
 })
