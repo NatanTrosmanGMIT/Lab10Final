@@ -59,19 +59,27 @@ app.post('/api/movies', (req, res) => {
 app.get('/api/movies/:id', (req, res) => {
     console.log(req.params.id);
 
-    movieModel.findById(req.params.id, (err,data)=>{
+    movieModel.findById(req.params.id, (err, data) => {
         res.json(data);
     })
 })
 // displays the movie data
 app.get('/api/movies', (req, res) => {
-
-    //https://m.media-amazon.com/images/M/MV5BNDQ4YzFmNzktMmM5ZC00MDZjLTk1OTktNDE2ODE4YjM2MjJjXkEyXkFqcGdeQXVyNTA4NzY1MzY@._V1_SX300.jpg
-    //https://m.media-amazon.com/images/M/MV5BNDUyODAzNDI1Nl5BMl5BanBnXkFtZTcwMDA2NDAzMw@@._V1_SX300.jpg
-
     movieModel.find((err, data) => {
         res.json(data);
     })
+
+})
+
+// goes and gets the data to edit a movie
+app.put('/api/movies/:id', (req,res)=>{
+    console.log("Update Movie: "+req.params.id);
+    console.log(req.body);
+
+    movieModel.findByIdAndUpdate(req.params.id,req.body,{new:true},
+        (err,data)=>{
+            res.send(data);
+        })
 
 })
 
@@ -103,3 +111,6 @@ app.post('/name', (req, res) => {
 app.get('/test', (req, res) => {
     res.sendFile(__dirname + '/index.html');
 })
+
+    //https://m.media-amazon.com/images/M/MV5BNDQ4YzFmNzktMmM5ZC00MDZjLTk1OTktNDE2ODE4YjM2MjJjXkEyXkFqcGdeQXVyNTA4NzY1MzY@._V1_SX300.jpg
+    //https://m.media-amazon.com/images/M/MV5BNDUyODAzNDI1Nl5BMl5BanBnXkFtZTcwMDA2NDAzMw@@._V1_SX300.jpg
