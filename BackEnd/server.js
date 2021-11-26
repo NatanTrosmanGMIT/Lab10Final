@@ -40,6 +40,15 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
+// deletes movies by searching for their id
+app.post('/api/movies/:id', (req, res) => {
+    console.log("Delete Movie: "+reqbody.id);
+
+    movieModel.findByIdAndDelete(req.params.id,(err,data)=>{
+        res.send(data)
+    });
+});
+
 // how we want movies displayed
 app.post('/api/movies', (req, res) => {
     console.log(req.body);
